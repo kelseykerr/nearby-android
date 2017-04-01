@@ -217,9 +217,11 @@ public class PaymentDetailsDialogFragment extends DialogFragment {
 
     private void setSaveBtnClick() {
         //TODO: uncomment below and remove the manual set of cc number & exp date
-        /*user.setCreditCardNumber(newCcNumber.getText().toString());
-        user.setCcExpirationDate(newExpDate.getText().toString());*/
-        Card card = new Card("4242424242424242", 5, 19, cvcNumber.getText().toString());
+        String expDate = newExpDate.getText().toString();
+        String expMonth = expDate.substring(0, 2);
+        String expYear = expDate.substring(3, 5);
+        Card card = new Card(newCcNumber.getText().toString(), Integer.parseInt(expMonth),
+                Integer.parseInt(expYear), cvcNumber.getText().toString());
         if (!card.validateCard()) {
             // Show errors
             Log.e(TAG, "Card was not valid");
@@ -227,7 +229,7 @@ public class PaymentDetailsDialogFragment extends DialogFragment {
             return;
         }
         try {
-            Stripe stripe = new Stripe(Constants.STRIPE_TEST_KEY);
+            Stripe stripe = new Stripe(Constants.STRIPE_KEY);
             stripe.createToken(
                     card,
                     new TokenCallback() {
