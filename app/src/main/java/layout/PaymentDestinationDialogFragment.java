@@ -171,7 +171,7 @@ public class PaymentDestinationDialogFragment extends DialogFragment {
         if (aNumber.isEmpty()) {
             valid = false;
             accntNumberLayout.setError("you must enter an account number");
-        } else if (aNumber.length() < 4 && aNumber.length() > 17){
+        } else if (aNumber.length() < 4 && aNumber.length() > 17) {
             valid = false;
             accntNumberLayout.setError("please enter a valid account number");
         } else {
@@ -189,14 +189,12 @@ public class PaymentDestinationDialogFragment extends DialogFragment {
         infoScreen.setVisibility(View.GONE);
         updatingAccountScreen.setVisibility(View.VISIBLE);
 
-        // TODO: in prod uncomment below. In sandbox use test routing/acct numbers
-                /*String sBank = bank_acct.getText().toString();
-                user.setBankAccountNumber(sBank);
-                String sRouting = routing_number.getText().toString();
-                user.setBankRoutingNumber(sRouting);*/
-        // TODO: fetch token instead of passing bank account info
-        user.setBankAccountNumber("000123456789");
-        user.setBankRoutingNumber("110000000");
+        String sBank = accntNumberLayout.getEditText().getText().toString();
+        user.setBankAccountNumber(sBank);
+        String sRouting = routingNumberLayout.getEditText().getText().toString();
+        user.setBankRoutingNumber(sRouting);
+        /*user.setBankAccountNumber("000123456789");
+        user.setBankRoutingNumber("110000000");*/
 
         new AsyncTask<Void, Void, Integer>() {
             @Override
